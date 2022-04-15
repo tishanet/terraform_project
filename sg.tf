@@ -1,8 +1,9 @@
 module "bastion_sg" {
   source = "terraform-aws-modules/security-group/aws"
   vpc_id = module.vpc_zdh.vpc_id
-   
-  ingress_cidr_blocks = [var.in_from_all]
+  name ="bastion_sg" 
+  
+  ingress_cidr_blocks = var.in_from_all
   ingress_rules = ["ssh-tcp"]
   egress_rules = ["all-all"]
 }
@@ -10,8 +11,9 @@ module "bastion_sg" {
 module "web_sg" {
   source = "terraform-aws-modules/security-group/aws"
   vpc_id = module.vpc_zdh.vpc_id
+  name ="web_sg"
   
-  ingress_cidr_blocks = [var.in_from_all]
+  ingress_cidr_blocks = var.in_from_all
   ingress_rules = ["http-80-tcp", "https-443-tcp"]
 
    ingress_with_source_security_group_id = [
@@ -27,6 +29,7 @@ module "web_sg" {
 module "db_sg" {
   source = "terraform-aws-modules/security-group/aws"
   vpc_id = module.vpc_zdh.vpc_id
+  name ="db_sg"
 
    ingress_with_source_security_group_id = [
     {
@@ -45,6 +48,7 @@ module "db_sg" {
 module "exporter_sg" {
   source = "terraform-aws-modules/security-group/aws"
   vpc_id = module.vpc_zdh.vpc_id
+  name ="exporter_sg"
 
    ingress_with_source_security_group_id = [
     {

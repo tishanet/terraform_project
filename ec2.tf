@@ -8,7 +8,7 @@ module "ec2_bastion" {
   monitoring = var.monitoring
   root_block_device = [ {volume_size=10 } ]
   vpc_security_group_ids = [module.bastion_sg.security_group_id]
-  subnet_id              = module.vpc.public_subnets[0]
+  subnet_id              = module.vpc_zdh.public_subnets[0]
   tags = var.tags_zdh
 }
 
@@ -22,7 +22,7 @@ module "ec2_db" {
   monitoring = var.monitoring
   root_block_device = [ {volume_size=30 } ]
   vpc_security_group_ids = [module.db_sg.security_group_id]
-  subnet_id              = module.vpc.public_subnets[1]
+  subnet_id              = module.vpc_zdh.public_subnets[1]
   tags = var.tags_zdh
 }
 
@@ -36,7 +36,7 @@ module "ec2_web" {
   monitoring = var.monitoring
   root_block_device = [ {volume_size=20 } ]
   vpc_security_group_ids = [module.web_sg.security_group_id]
-  subnet_id              = module.vpc.public_subnets[2]
+  subnet_id              = module.vpc_zdh.public_subnets[2]
   tags = var.tags_zdh
 }
 module "ec2_exporter" {
@@ -49,6 +49,6 @@ module "ec2_exporter" {
   monitoring = var.monitoring
   root_block_device = [ {volume_size=30 } ]
   vpc_security_group_ids = [module.exporter_sg.security_group_id]
-  subnet_id              = module.vpc.public_subnets[3]
+  subnet_id              = module.vpc_zdh.public_subnets[3]
   tags = var.tags_zdh
 }
