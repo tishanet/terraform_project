@@ -55,15 +55,8 @@ module "exporter_sg" {
       rule                     = "ssh-tcp"
       source_security_group_id = module.bastion_sg.security_group_id
     },
-     {
-      from_port                = 0
-      to_port                  = 9100
-      protocol                 = 6
-      description              = "Exporter"
-      source_security_group_id = module.web_sg.security_group_id
-    },
     {
-      from_port                = 0
+      from_port                = 9100
       to_port                  = 9100
       protocol                 = 6
       description              = "Exporter"
