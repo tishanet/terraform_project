@@ -25,10 +25,9 @@ variable "dns_hostnames_vpc" {
     default = true
 }
 #SG
-variable "in_from_all" {
-    type = list(string)
-}
-#Comman 
+variable "in_from_all" {}
+
+#Common 
 variable "tags_zdh" {
     type = map
     default = {
