@@ -1,0 +1,10 @@
+module "s3_zdh_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+
+  bucket = "zdh.backet"
+  acl    = "private"
+
+  versioning = {
+    enabled = true
+  }
+}
