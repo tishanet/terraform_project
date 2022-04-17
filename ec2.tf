@@ -9,6 +9,15 @@ module "ec2_bastion" {
   root_block_device = [ {volume_size=10 } ]
   vpc_security_group_ids = [module.bastion_sg.security_group_id]
   subnet_id              = module.vpc_zdh.public_subnets[0]
+  user_data = <<EOF
+  #! /bin/bash
+  sudo apt-get update
+  sudo apt-get install -y apache2
+  sudo systemctl start apache2
+  sudo systemctl enable apache2
+  echo "The page was created by the user data" | sudo tee /var/www/html/index.html
+  EOF
+
   tags = var.tags_zdh
 }
 
@@ -37,6 +46,7 @@ module "ec2_web" {
   root_block_device = [ {volume_size=20 } ]
   vpc_security_group_ids = [module.web_sg.security_group_id]
   subnet_id              = module.vpc_zdh.public_subnets[2]
+  user_data = "${file("user-data-nginx.sh")}"
   tags = var.tags_zdh
 }
 module "ec2_exporter" {
